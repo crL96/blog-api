@@ -1,6 +1,9 @@
 const express = require("express");
+const postsRouter = require("./routes/posts");
 
 const app = express();
+
+app.use("/posts", postsRouter);
 
 app.get("/", (req, res) => {
     res.json({ message: "Hello, world" });
