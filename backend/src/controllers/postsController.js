@@ -41,6 +41,7 @@ async function getSinglePost(req, res) {
         });
         if (post == null) {
             res.status(404).json({ message: "No post found with requested id"})
+            return;
         }
         res.json(post);
     }
