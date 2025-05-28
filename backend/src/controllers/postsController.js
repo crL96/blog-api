@@ -74,8 +74,28 @@ async function submitPost(req, res) {
     }
 }
 
+async function updatePost(req, res) {
+    try {
+        const response = await prisma.post.update({
+            data: {
+                title: req.body.title,
+                text: req.body.text,
+                published: req.body.published  
+            },
+            where: {
+                id: req.params.postId
+            }
+        })
+        res.json(response);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: "Internal server error"})
+    }
+}
+
 module.exports = {
     getAllPublishedPosts,
     getSinglePost,
-    submitPost
+    submitPost,
+    updatePost,
 }

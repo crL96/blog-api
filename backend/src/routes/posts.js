@@ -5,10 +5,11 @@ const commentsRouter = require("./comments");
 router.use("/:postId/comments", commentsRouter);
 
 router.get("/", postsController.getAllPublishedPosts);
+router.post("/", postsController.submitPost);
 
 router.get("/:postId", postsController.getSinglePost);
+router.put("/:postId", postsController.updatePost);
 
-router.post("/", postsController.submitPost);
 
 
 module.exports = router;
