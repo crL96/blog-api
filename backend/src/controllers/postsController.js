@@ -50,7 +50,31 @@ async function getSinglePost(req, res) {
     }
 }
 
+async function submitPost(req, res) {
+    try {
+        const response = await prisma.post.create({
+            data: {
+                title: req.body.title,
+                text: req.body.text,
+                published: req.body.published,
+                authorId: req.body.authorId
+            }
+        })
+        res.json(response);
+    } catch (error) {
+        if (error.message.startsWith("\nInvalid `prisma.post.create")) {
+            res.status(400).json({ 
+                message: "Bad request: include title, text, authorId, published (boolean)"
+            })
+            return;
+        }
+        console.log(error.message);
+        res.status(500).json({ message: "Internal server error"})
+    }
+}
+
 module.exports = {
     getAllPublishedPosts,
     getSinglePost,
+    submitPost
 }
