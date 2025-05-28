@@ -1,5 +1,6 @@
 const express = require("express");
 const postsRouter = require("./routes/posts");
+const authRouter = require("./routes/auth");
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routers
 app.use("/posts", postsRouter);
+app.use("/auth", authRouter);
 
 app.get("/", (req, res) => {
     res.json({ message: "Hello, world" });
