@@ -20,7 +20,7 @@ model Post {
   text      String
   published Boolean
   timestamp DateTime  @default(now())
-  Comments  Comment[]
+  comments  Comment[]
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String
 }
