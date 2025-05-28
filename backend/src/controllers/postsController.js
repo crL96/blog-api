@@ -18,7 +18,8 @@ async function getAllPublishedPosts(req, res) {
         });
         res.json(posts);
     } catch (error) {
-        res.json({ message: error.message })
+        console.log(error.message);
+        res.status(500).json({ message: "Internal server error"})
     }
 };
 
@@ -44,7 +45,8 @@ async function getSinglePost(req, res) {
         res.json(post);
     }
     catch (error) {
-        res.json({ message: error.message })
+        console.log(error.message);
+        res.status(500).json({ message: "Internal server error"})
     }
 }
 
