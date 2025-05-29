@@ -10,6 +10,8 @@ router.post("/", passport.authenticate("jwt", { session: false }), postsControll
 
 router.get("/:postId", postsController.getSinglePost);
 router.put("/:postId", passport.authenticate("jwt", { session: false }), postsController.updatePost);
+router.delete("/:postId", passport.authenticate("jwt", { session: false }), postsController.deletePost);
+
 
 
 

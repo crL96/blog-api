@@ -93,9 +93,31 @@ async function updatePost(req, res) {
     }
 }
 
+async function deletePost(req, res) {
+    try {
+        const post = await prisma.post.delete({
+            where: {
+                id: req.params.postId
+            },
+        });
+        res.json({ success: true, post: post});
+    } catch (error) {
+        if (error.message.startsWith("\nInvalid `prisma.post.delete")) {
+            res.status(404).json({ 
+                success: false,
+                message: "No post found with requested id",
+            })
+            return;
+        }
+        console.log(error.message);
+        res.status(500).json({ message: "Internal server error"})
+    }
+}
+
 module.exports = {
     getAllPublishedPosts,
     getSinglePost,
     submitPost,
     updatePost,
+    deletePost,
 }
