@@ -1,4 +1,5 @@
 const prisma = require("../config/prisma");
+const { body, validationResult } = require("express-validator");
 
 async function getAllCommentsForPost(req, res) {
     try {
@@ -32,27 +33,54 @@ async function getSingleComment(req, res) {
     }
 }
 
-async function submitComment(req, res) {
-    try {
-        const response = await prisma.comment.create({
-            data: {
-                author: req.body.author,
-                message: req.body.message,
-                postId: req.params.postId,
-            }
-        })
-        res.json(response);
-    } catch (error) {
-        if (error.message.startsWith("\nInvalid `prisma.comment.create")) {
-            res.status(400).json({ 
-                message: "Bad request: include author and comment message"
-            })
+const validateComment = [
+    body("author")
+        .trim()
+        .isAlphanumeric()
+        .withMessage("Name must be alpha-numeric (only numbers and letters)")
+        .isLength({ min: 1, max: 25 })
+        .withMessage("Name must be between 1 and 25 characters"),
+    body("message")
+        .trim()
+        .isLength({ min: 1, max: 300 })
+        .withMessage("Comment must be between 1 and 300 characters"),
+];
+
+const submitComment = [
+    validateComment,
+
+    async (req, res) => {
+        //Check if validation passed
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({
+                success: false,
+                errors: errors.array(),
+            });
             return;
         }
-        console.log(error.message);
-        res.status(500).json({ message: "Internal server error"})
+
+        try {
+            const response = await prisma.comment.create({
+                data: {
+                    author: req.body.author,
+                    message: req.body.message,
+                    postId: req.params.postId,
+                }
+            })
+            res.json({ success: true, comment: response });
+        } catch (error) {
+            if (error.message.startsWith("\nInvalid `prisma.comment.create")) {
+                res.status(400).json({ 
+                    message: "Bad request: include author and comment message"
+                })
+                return;
+            }
+            console.log(error.message);
+            res.status(500).json({ message: "Internal server error"})
+        }
     }
-}
+];
 
 async function deleteComment(req, res) {
     try {
