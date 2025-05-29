@@ -1,0 +1,25 @@
+.blogPost {
+    border: 2px solid white;
+    border-radius: 0.5rem;
+
+    padding: 2rem;
+    margin-bottom: 2rem;
+    
+    max-width: 70ch;
+    text-align: start;
+}
+
+.blogPost > p {
+    font-size: 1.1rem;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 2px solid white;
+}
+
+.comments > * {
+    margin-bottom: 1rem;
+}
