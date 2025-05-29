@@ -1,10 +1,12 @@
 const express = require("express");
 const postsRouter = require("./routes/posts");
 const authRouter = require("./routes/auth");
+const cors = require("cors");
 
 const app = express();
 
 // App Middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
