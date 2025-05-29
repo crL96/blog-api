@@ -54,8 +54,30 @@ async function submitComment(req, res) {
     }
 }
 
+async function deleteComment(req, res) {
+    try {
+        const deletedComment = await prisma.comment.delete({
+            where: {
+                id: req.params.commentId
+            }
+        });
+        res.json({ success: true, deleted: deletedComment});
+    } catch (error) {
+        if (error.message.startsWith("\nInvalid `prisma.comment.delete")) {
+            res.status(404).json({ 
+                success: false,
+                message: "No comment found with requested id",
+            })
+            return;
+        }
+        console.log(error.message);
+        res.status(500).json({ message: "Internal server error"})
+    }
+}
+
 module.exports = {
     getAllCommentsForPost,
     getSingleComment,
     submitComment,
+    deleteComment,
 }
