@@ -58,14 +58,14 @@ async function submitPost(req, res) {
                 title: req.body.title,
                 text: req.body.text,
                 published: req.body.published,
-                authorId: req.body.authorId
+                authorId: req.user.id
             }
         })
         res.json(response);
     } catch (error) {
         if (error.message.startsWith("\nInvalid `prisma.post.create")) {
             res.status(400).json({ 
-                message: "Bad request: include title, text, authorId, published (boolean)"
+                message: "Bad request: include title, text, published (boolean)"
             })
             return;
         }
