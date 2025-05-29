@@ -95,12 +95,20 @@ async function updatePost(req, res) {
 
 async function deletePost(req, res) {
     try {
-        const post = await prisma.post.delete({
+        //Delete post and all its comments
+        const deleteComments = prisma.comment.deleteMany({
+            where: {
+                postId: req.params.postId
+            }
+        });
+        const deletePost = prisma.post.delete({
             where: {
                 id: req.params.postId
             },
         });
-        res.json({ success: true, post: post});
+        const transaction = await prisma.$transaction([deleteComments, deletePost]);
+
+        res.json({ success: true, deleted: transaction});
     } catch (error) {
         if (error.message.startsWith("\nInvalid `prisma.post.delete")) {
             res.status(404).json({ 
