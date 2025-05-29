@@ -9,6 +9,19 @@ async function createAdminUser(req, res) {
         return;
     }
     try {
+        const existingUser = await prisma.user.findUnique({
+            where: {
+                username: req.body.username,
+            },
+        });
+        if (existingUser) {
+            res.status(409).json({
+                success: false,
+                message: "Username already exists",
+            });
+            return;
+        }
+
         const hashedPw = await bcrypt.hash(req.body.password, 10);
 
         const response = await prisma.user.create({
@@ -20,6 +33,7 @@ async function createAdminUser(req, res) {
         });
         res.json(response);
     } catch (error) {
+        console.log(error);
         if (error.message.startsWith("\nInvalid `prisma.user.create")) {
             res.status(400).json({
                 message: "Bad request: include name, username and password",
