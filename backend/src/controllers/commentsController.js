@@ -36,7 +36,7 @@ async function getSingleComment(req, res) {
 const validateComment = [
     body("author")
         .trim()
-        .isAlphanumeric()
+        .isAlphanumeric('en-US', {ignore: " "})
         .withMessage("Name must be alpha-numeric (only numbers and letters)")
         .isLength({ min: 1, max: 25 })
         .withMessage("Name must be between 1 and 25 characters"),
