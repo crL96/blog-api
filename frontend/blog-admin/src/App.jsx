@@ -1,6 +1,7 @@
 import './App.css'
 import { useState, useEffect } from "react";
 import BlogPost from './components/blogPost/BlogPost';
+import NavBar from './components/navBar/NavBar.jsx';
 const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <>
+      <NavBar />
       <h1>Admin Access - The Blog</h1>
       {blogPosts.map((post) => {
         return (
