@@ -122,10 +122,32 @@ async function deletePost(req, res) {
     }
 }
 
+async function getAllPostsAdmin(req, res) {
+    try {
+        const posts = await prisma.post.findMany({
+            select: {
+                id: true,
+                title: true,
+                text: true,
+                timestamp: true,
+                published: true,
+                author: {
+                    select: { name: true }
+                }
+            },
+        });
+        res.json(posts);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: "Internal server error"})
+    }
+};
+
 module.exports = {
     getAllPublishedPosts,
     getSinglePost,
     submitPost,
     updatePost,
     deletePost,
+    getAllPostsAdmin,
 }
