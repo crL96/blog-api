@@ -2,8 +2,10 @@ import styles from "./blogPost.module.css";
 import { useState, useEffect } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
 import Comment from "../comment/Comment";
+import { useNavigate } from "react-router-dom";
 
 function BlogPost({ post }) {
+    const navigate = useNavigate();
     const [comments, setComments] = useState([]);
     
     useEffect(() => {
@@ -14,12 +16,15 @@ function BlogPost({ post }) {
 
     async function handleDelete() {
         try {
-            await fetch(`${API_URL}/posts/${post.id}`, {
+            const res = await fetch(`${API_URL}/posts/${post.id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: sessionStorage.getItem("token")
                 }
             });
+            if (res.status === 401) {
+                navigate("login");
+            }
         } catch (error) {
             console.log(error);
         }
