@@ -14,7 +14,7 @@ function Comment({ comment }) {
                 }
             });
             if (res.status === 401) {
-                navigate("login");
+                navigate("/login");
             } else {
                 window.location.reload();
             }
