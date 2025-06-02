@@ -24,6 +24,8 @@ function BlogPost({ post }) {
             });
             if (res.status === 401) {
                 navigate("login");
+            } else {
+                window.location.reload();
             }
         } catch (error) {
             console.log(error);
