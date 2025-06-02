@@ -1,5 +1,6 @@
 import './App.css'
 import { useState, useEffect } from "react";
+import BlogPost from './components/blogPost/BlogPost';
 const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
@@ -17,7 +18,12 @@ function App() {
 
   return (
     <>
-      <h1>Hello World</h1>
+      <h1>Admin Access - The Blog</h1>
+      {blogPosts.map((post) => {
+        return (
+          <BlogPost key={post.id} post={post}/>
+        );
+      })}
     </>
   )
 }
