@@ -12,8 +12,19 @@ function BlogPost({ post }) {
             .then((data) => setComments(data))
     }, [post.id])
 
+    async function handleDelete() {
+        try {
+            await fetch(`${API_URL}/posts/${post.id}`, {
+                method: "DELETE"
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className={[styles.blogPost, "blogPost"].join(" ")}>
+            <button onClick={handleDelete}>Delete</button>
             <h2>{post.title}</h2>
             <p>{post.text}</p>
             <div className={styles.footer}>
