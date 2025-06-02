@@ -15,7 +15,10 @@ function BlogPost({ post }) {
     async function handleDelete() {
         try {
             await fetch(`${API_URL}/posts/${post.id}`, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    Authorization: sessionStorage.getItem("token")
+                }
             });
         } catch (error) {
             console.log(error);

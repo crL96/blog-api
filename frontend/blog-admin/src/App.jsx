@@ -8,12 +8,15 @@ function App() {
   const [blogPosts, setBlogPosts] = useState([]);
 
   useEffect(() => {
-    fetch(API_URL + "/posts/admin")
+    fetch(API_URL + "/posts/admin", {
+      method: "GET",
+      headers: {
+        Authorization: sessionStorage.getItem("token")
+      }
+    })
       .then((response) => response.json())
       .then((data) => setBlogPosts(data))
   }, [])
-
-  console.log(blogPosts);
 
   if (blogPosts.length === 0) return <p>Loading...</p>
 
