@@ -54,7 +54,7 @@ function BlogPost({ post }) {
 
     return (
         <div className={[styles.blogPost, "blogPost"].join(" ")}>
-            <button onClick={handleDelete}>Delete</button>
+            <button className={styles.deleteBtn} onClick={handleDelete}>Delete</button>
             <button onClick={handlePublish}>
                 {post.published ? ("Unpublish") : ("Publish")}
             </button>
