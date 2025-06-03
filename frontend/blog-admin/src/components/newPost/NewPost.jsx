@@ -28,6 +28,8 @@ function NewPost() {
             });
             if (response.status === 200) {
                 navigate("/");
+            } else if (response.status === 401) {
+                navigate("/login");
             } else {
                 setErrorMessage("Something went wrong, please try again")
             }
