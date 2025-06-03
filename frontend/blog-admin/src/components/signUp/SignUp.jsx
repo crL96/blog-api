@@ -42,7 +42,7 @@ function SignUp() {
             <NavBar />
             <p>{errorMessage}</p>
             <form onSubmit={handleSubmit}>
-                <legend>Log In</legend>
+                <legend>Sign Up</legend>
                 <label htmlFor="name">Name: </label>
                 <input type="text" name="name" id="name"  required/>
                 <label htmlFor="username">Username: </label>

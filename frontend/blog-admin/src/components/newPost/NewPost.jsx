@@ -43,9 +43,9 @@ function NewPost() {
         <>
             <NavBar />
             <div className={styles.div}>
-                <h3 className={styles.header}>New Post</h3>
                 <p>{errorMessage}</p>
                 <form onSubmit={handleSubmit} className={styles.form}>
+                    <legend>New Post</legend>
                     <label htmlFor="title">Title: </label>
                     <input type="text" name="title" id="title" />
                     <label htmlFor="text">Content: </label>
