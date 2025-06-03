@@ -33,12 +33,14 @@ function App() {
   return (
     <>
       <NavBar />
-      <h1>Admin Access - The Blog</h1>
-      {blogPosts.map((post) => {
-        return (
-          <BlogPost key={post.id} post={post}/>
-        );
-      })}
+      <h1>Blog Posts</h1>
+      <div className="blogPostsContainer">
+        {blogPosts.map((post) => {
+          return (
+            <BlogPost key={post.id} post={post}/>
+          );
+        })}
+      </div>
     </>
   )
 }
