@@ -32,9 +32,33 @@ function BlogPost({ post }) {
         }
     }
 
+    async function handlePublish() {
+        try {
+            const res = await fetch(`${API_URL}/posts/${post.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: sessionStorage.getItem("token"),
+                    "Content-Type": "Application/JSON",
+                },
+                body: JSON.stringify({
+                    published: !(post.published)
+                })
+            });
+            if (res.status === 200) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className={[styles.blogPost, "blogPost"].join(" ")}>
             <button onClick={handleDelete}>Delete</button>
+            <button onClick={handlePublish}>
+                {post.published ? ("Unpublish") : ("Publish")}
+            </button>
+
             <h2>{post.title}</h2>
             <p>{post.text}</p>
             <div className={styles.footer}>
