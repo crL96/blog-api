@@ -29,7 +29,7 @@ function SubmitComment({ postId }) {
                 setErrorMessages(responseObj.errors)
             } else {
                 console.log(response);
-                setErrorMessages[{ msg: "Something went wrong, please try again" }]
+                setErrorMessages([{ msg: "Something went wrong, please try again" }])
             }
         } catch (error) {
             console.log(error)
