@@ -23,6 +23,7 @@ function SubmitComment({ postId }) {
             if (response.status === 200) {
                 setErrorMessages([]);
                 e.target.reset()
+                window.location.reload();
             } else if (response.status === 400) {
                 const responseObj = await response.json()
                 console.log(responseObj);
