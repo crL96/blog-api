@@ -9,7 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
-    "dev": "node --watch src/app.js"
+    "dev": "node --watch src/app.js",
+    "init-install": "npm install && npx prisma generate",
+    "init-db": "npx prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
