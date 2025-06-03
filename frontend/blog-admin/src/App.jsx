@@ -28,7 +28,14 @@ function App() {
       .catch((error) => console.log(error));
   }, [navigate]);
 
-  if (blogPosts.length === 0) return <p>Loading...</p>
+  if (blogPosts.length === 0) {
+    return (
+      <>
+        <NavBar />
+        <p>Loading...</p>
+      </>
+    );
+  }
 
   return (
     <>
