@@ -5,3 +5,13 @@
     justify-content: end;
     gap: 2rem;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header > h2 {
+    margin: 0;
+}

@@ -18,32 +18,36 @@ function NavBar() {
   }
 
   return (
-    <nav className={styles.navBar}>
-        <ul>
-          {signedIn ? ( // If user is signed in
-            <>
-              <li>
-                <Link to="/">Blog Posts</Link>
-              </li>
-              <li>
-                <Link to="/newpost">New Post</Link>
-              </li>
-              <li>
-                <Link to="/login" onClick={handleLogout}>Log Out</Link>
-              </li>
-            </>
-          ) : ( // If user is not signed in
-            <>
-              <li>
-                <Link to="/login">Log In</Link>
-              </li>
-              <li>
-                <Link to="/signup">Sign Up</Link>
-              </li>
-            </>
-          )}
-        </ul>
-    </nav>
+    <header className={styles.header}>
+      <h2>The Blog - Admin</h2>
+      <nav className={styles.navBar}>
+          <ul>
+            {signedIn ? ( // If user is signed in
+              <>
+                <li>
+                  <Link to="/">Blog Posts</Link>
+                </li>
+                <li>
+                  <Link to="/newpost">New Post</Link>
+                </li>
+                <li>
+                  <Link to="/login" onClick={handleLogout}>Log Out</Link>
+                </li>
+              </>
+            ) : ( // If user is not signed in
+              <>
+                <li>
+                  <Link to="/login">Log In</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Sign Up</Link>
+                </li>
+              </>
+            )}
+          </ul>
+      </nav>
+    </header>
+
   );
 };
 
