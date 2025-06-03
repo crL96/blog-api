@@ -12,11 +12,22 @@ function App() {
       .then((data) => setBlogPosts(data))
   }, [])
 
-  if (blogPosts.length === 0) return <p>Loading...</p>
+  if (blogPosts.length === 0) {
+    return (
+      <>
+        <p>Loading...</p>
+        <p>
+          Due to this project being for educational purposes it uses a free 
+          tier for publishing the backend that shuts down after inactivity, 
+          give it a little time to boot up.
+        </p>
+      </>
+    )
+  }
 
   return (
     <>
-      <h1>Hello World!</h1>
+      <h1>The Blog</h1>
       {blogPosts.map((post) => {
         return (
           <BlogPost key={post.id} post={post}/>
