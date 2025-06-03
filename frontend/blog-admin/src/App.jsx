@@ -3,20 +3,30 @@ import { useState, useEffect } from "react";
 import BlogPost from './components/blogPost/BlogPost';
 import NavBar from './components/navBar/NavBar.jsx';
 const API_URL = import.meta.env.VITE_API_URL;
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [blogPosts, setBlogPosts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(API_URL + "/posts/admin", {
-      method: "GET",
-      headers: {
-        Authorization: sessionStorage.getItem("token")
+    async function fetchPosts() {
+      const res = await fetch(API_URL + "/posts/admin", {
+        method: "GET",
+        headers: {
+          Authorization: sessionStorage.getItem("token")
+        }
+      });
+      if (res.status === 401) {
+        navigate("/login")
+      } else {
+        const data = await res.json()
+        setBlogPosts(data);
       }
-    })
-      .then((response) => response.json())
-      .then((data) => setBlogPosts(data))
-  }, [])
+    }
+    fetchPosts()
+      .catch((error) => console.log(error));
+  }, [navigate]);
 
   if (blogPosts.length === 0) return <p>Loading...</p>
 
