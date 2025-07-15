@@ -57,6 +57,10 @@ button:hover {
     border-color: var(--secondclr);
 }
 
+textarea {
+    resize: vertical;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

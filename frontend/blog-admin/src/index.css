@@ -111,6 +111,10 @@ header a {
     color: var(--secondclr);
 }
 
+textarea {
+    resize: vertical;
+}
+
 /* FORMS */
 form {
     border: 2px solid var(--secondclr);
